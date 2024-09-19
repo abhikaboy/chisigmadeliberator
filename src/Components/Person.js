@@ -73,6 +73,10 @@ export default function Person({ data }) {
 						paddingTop: '0%',
 					}}>
 					<div style={attributeCard}>
+						<b>Year:</b> {data['year']}
+					</div>
+
+					<div style={attributeCard}>
 						<b>Major:</b> {data['major']}
 					</div>
 					<div style={attributeCard}>
@@ -84,10 +88,6 @@ export default function Person({ data }) {
 							display: data['minors'] === '' || data['minors' === 'N/A'] ? 'hidden' : 'block',
 						}}>
 						<b>Minors:</b> {data['minors']}
-					</div>
-
-					<div style={attributeCard}>
-						<b>Year:</b> {data['year']}
 					</div>
 
 					<div style={attributeCard}>
