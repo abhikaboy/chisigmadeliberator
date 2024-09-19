@@ -5,31 +5,25 @@ export default function QA({ q, a }) {
 		<div
 			style={{
 				marginBottom: '1%',
+				display: 'flex',
+				width: '95%',
+				borderRadius: 10,
+				flexDirection: 'column',
+				boxShadow: '0px 2px 6px 0px rgba(0,0,0,0.2)',
 			}}>
 			<div
 				style={{
-					width: '90%',
-					color: 'white',
 					backgroundColor: '#001B2A',
+					color: 'white',
+					padding: '3%',
 					borderRadius: 10,
-					borderStyle: 'solid',
-					borderWidth: 1,
-					padding: 20,
 				}}>
 				{q}
 			</div>
 			<div
 				style={{
-					width: '90%',
-					color: 'black',
+					padding: '3%',
 					borderRadius: 10,
-					borderStyle: 'solid',
-					borderTopWidth: 0,
-					marginTop: '-1%',
-					borderTopRightRadius: 0,
-					borderTopLeftRadius: 0,
-					borderWidth: 1,
-					padding: 20,
 				}}>
 				{a}
 			</div>

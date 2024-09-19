@@ -3,21 +3,31 @@ import Person from './Person';
 import Info from './Info';
 import Papa from 'papaparse';
 import app from '../App/application.csv';
+import { set } from 'lodash';
 
 export default function Body() {
 	const [appData, setAppData] = useState([]);
 	const [headers, setHeaders] = useState([]);
 	const [selected, setSelected] = useState(null);
 
+	const [evalData, setEvalData] = useState([]);
+	const [evalsCurrent, setEvalsCurrent] = useState([]);
+
 	const handleClick = (e) => {
-		setSelected(e.target.value);
+		let index = e.target.value;
+		setSelected(index);
+		let evalList = evalData.filter((evaluation) => evaluation.name === appData[index].name);
+		setEvalsCurrent(evalList);
 	};
 
 	/* 
 		PARSING
 	*/
 
-	let url = `https://relay-file-upload.s3.us-east-2.amazonaws.com/AKPsiFL24APPS+-+Form+Responses+1.csv`;
+	let url = `https://relay-file-upload.s3.us-east-2.amazonaws.com/AKPsiFL24APPS+-+Form+Responses+1+(1).csv`;
+	let evalUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/kmcv268qr5gUpsilonEvalForm!(Responses)-FormResponses1.csv`;
+	let evalAggregate = ``;
+
 	useEffect(() => {
 		Papa.parse(url, {
 			download: true,
@@ -25,6 +35,14 @@ export default function Body() {
 			complete: function (results) {
 				setHeaders(results.data[1]);
 				setAppData(results.data.slice(1));
+				console.log(results.data.slice(1));
+			},
+		});
+		Papa.parse(evalUrl, {
+			download: true,
+			header: true,
+			complete: function (results) {
+				setEvalData(results.data.slice(1));
 				console.log(results.data.slice(1));
 			},
 		});
@@ -50,17 +68,17 @@ export default function Body() {
 			}}>
 			<div
 				style={{
-					width: '30%',
-					height: '100%',
+					width: '25%',
+					overflow: 'scroll',
 					gap: 0,
 				}}>
 				<Person data={appData[selected]} />
 			</div>
 			<div
 				style={{
-					width: '70vw',
+					width: '75vw',
 					overflow: 'scroll',
-					paddingTop: '4%',
+					paddingTop: '2%',
 				}}>
 				<select
 					onChange={handleClick}
@@ -84,7 +102,7 @@ export default function Body() {
 					})}
 					{/* <option value={selected}>{appData[selected].FullName}</option> */}
 				</select>
-				<Info data={appData[selected]} />
+				<Info data={appData[selected]} evalRaw={evalsCurrent} />
 			</div>
 		</div>
 	);
