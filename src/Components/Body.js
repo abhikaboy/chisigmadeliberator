@@ -19,8 +19,10 @@ export default function Body() {
 		let index = e.target.value;
 		setSelected(index);
 
+		console.log(appData[index]);
+
 		let evalList = evalData.filter(
-			(evaluation) => evaluation.name.toLowerCase() == appData[index].name.toLowerCase(),
+			(evaluation) => evaluation.name.toLowerCase().trim() == appData[index].name.toLowerCase().trim(),
 		);
 		setEvalsCurrent(evalList);
 	};
