@@ -6,6 +6,8 @@ import app from '../App/application.csv';
 import { set } from 'lodash';
 
 export default function Body() {
+	const [password, setPassword] = useState('');
+
 	const [appData, setAppData] = useState([]);
 	const [headers, setHeaders] = useState([]);
 	const [selected, setSelected] = useState(null);
@@ -16,7 +18,10 @@ export default function Body() {
 	const handleClick = (e) => {
 		let index = e.target.value;
 		setSelected(index);
-		let evalList = evalData.filter((evaluation) => evaluation.name === appData[index].name);
+
+		let evalList = evalData.filter(
+			(evaluation) => evaluation.name.toLowerCase() == appData[index].name.toLowerCase(),
+		);
 		setEvalsCurrent(evalList);
 	};
 
@@ -24,8 +29,79 @@ export default function Body() {
 		PARSING
 	*/
 
-	let url = `https://relay-file-upload.s3.us-east-2.amazonaws.com/AKPsiFL24APPS+-+Form+Responses+1+(1).csv`;
-	let evalUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/kmcv268qr5gUpsilonEvalForm!(Responses)-FormResponses1.csv`;
+	let blacklist = [
+		'Aaron Thomas',
+		'Aditya Patwal',
+		'Aishani Raju',
+		'Ashley Shin',
+		'Ava Baichi',
+		'Ben Wanderman',
+		'Clare Murray',
+		'Connor Tukey',
+		'Dia Brar',
+		'Eva Rankin',
+		'Gianna Eberhardt',
+		'Grace Cocorocchia',
+		'Isabella Quintero',
+		'Jack Larkin',
+		'Jonathan Frenz',
+		'Joseph Asoofi',
+		'Juan Cadierno Redondo',
+		'Kathryn Fisher',
+		'Kyle Lee',
+		'Lexi Kemmer',
+		'Merton (Rocky) Rockney',
+		'Mia Khan',
+		'Nicole Swan',
+		'Nikk Shah',
+		'Richard Huang',
+		'Riya Ramdev',
+		'Ross Kobayashi',
+		'Saimaa Malhotra',
+		'Vaunshal Saraiya',
+		'Aarzu Choudhary',
+		'Aidan Ormsby',
+		'Arkin Sawhney',
+		'Caden Braun',
+		'Charlotte Napawan',
+		'Thanawan "Charlotte" Napawan',
+		'Izze (Izadora) D’Farley',
+		'Jay Leung',
+		'London Jones',
+		'Mahika Modi',
+		'Maximus Mcelroy',
+		'Natalie Downs',
+		'Alina Jiang',
+		'Alisha Srivastava',
+		'Ayah Bouchouary',
+		'Chris Catalan Valdez',
+		'Christina Fu',
+		'Diana Heung',
+		'Esabella DeFilippo',
+		'Frank Giugliano',
+		'Jack Jiang',
+		'Jack McCarthy',
+		'Jaden Chin',
+		'Joshua Lin',
+		'Leran Ban',
+		'Liam Sutton',
+		'Meredith Lee',
+		'Michael Zemedeneh',
+		'Nicolas Somma Tang',
+		'Orelia Thottam',
+		'Sameera Boga',
+		'Shreya Dandu',
+		'Siran Khachatourian',
+		'Trayna Bui',
+		'Vanini Agrawal',
+		'Vedanta Sharma',
+		'Lily Bailey',
+		'Arjun Vellimedu',
+		'Kristen Liao',
+	];
+
+	let url = `https://relay-file-upload.s3-us-east-2.amazonaws.com/elxnaqi5pqgAKPsiFL24APPS-FormResponses1(6).csv`;
+	let evalUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv`;
 	let evalAggregate = ``;
 
 	useEffect(() => {
@@ -51,6 +127,7 @@ export default function Body() {
 	// useEffect(() => {
 	// console.log(appData);
 	// }, [appData]);
+
 	if (appData.length === 0) {
 		return <div>Loading...</div>;
 	}
@@ -94,6 +171,12 @@ export default function Body() {
 						width: '100%',
 					}}>
 					{appData.map((data, i) => {
+						if (
+							blacklist.includes(data.name)
+							// || evalData.filter((evaluation) => evaluation.name === data.name).length === 0
+						) {
+							return null;
+						}
 						return (
 							<option key={i} value={i}>
 								{data.name}

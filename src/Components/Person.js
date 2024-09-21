@@ -46,6 +46,7 @@ export default function Person({ data }) {
 					paddingTop: '10vh',
 				}}
 			/>
+
 			<div>
 				<h1
 					style={{
@@ -92,6 +93,20 @@ export default function Person({ data }) {
 
 					<div style={attributeCard}>
 						<b>Events:</b> {data['events']}
+					</div>
+
+					<div
+						style={{
+							color: 'white',
+							textAlign: 'center',
+						}}>
+						<a
+							href={data['photo']}
+							target='_blank'
+							rel='noreferrer'
+							style={{ color: 'white', textDecoration: 'none' }}>
+							fallback
+						</a>
 					</div>
 
 					{/* <div style={{ color: 'white', textDecoration: 'none' }}>
