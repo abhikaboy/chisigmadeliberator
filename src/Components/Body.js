@@ -102,8 +102,8 @@ export default function Body() {
 		'Kristen Liao',
 	];
 
-	let url = `https://relay-file-upload.s3-us-east-2.amazonaws.com/elxnaqi5pqgAKPsiFL24APPS-FormResponses1(6).csv`;
-	let evalUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv`;
+	let url = ''; // `https://relay-file-upload.s3-us-east-2.amazonaws.com/elxnaqi5pqgAKPsiFL24APPS-FormResponses1(6).csv`;
+	let evalUrl = ''; // `https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv`;
 	let evalAggregate = ``;
 
 	useEffect(() => {
