@@ -67,18 +67,18 @@ export default function Body() {
 		PARSING
 	*/
 
-	let url = 'https://relay-file-upload.s3-us-east-2.amazonaws.com/xtzsxn2is9aAKPsiFL24APPS-FormResponses1(9).csv'; // `https://relay-file-upload.s3-us-east-2.amazonaws.com/elxnaqi5pqgAKPsiFL24APPS-FormResponses1(6).csv`;
-	let evalUrl =
-		'https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv'; // `https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv`;
-	let evalAggregate = `,`;
+	// let url = 'https://relay-file-upload.s3-us-east-2.amazonaws.com/xtzsxn2is9aAKPsiFL24APPS-FormResponses1(9).csv'; // `https://relay-file-upload.s3-us-east-2.amazonaws.com/elxnaqi5pqgAKPsiFL24APPS-FormResponses1(6).csv`;
+	// let evalUrl =
+	// 	'https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv'; // `https://relay-file-upload.s3-us-east-2.amazonaws.com/i3a7f63aklpUpsilonEvalForm!(Responses)-FormResponses1(4).csv`;
+	// let evalAggregate = `,`;
 
-	let finalInvScore = `https://relay-file-upload.s3-us-east-2.amazonaws.com/feb4bfdw93vUpsilonDelibsMastersheet-FinalTotalAverages(invitationalsprepandpres)(2).csv`;
-	let prepScoresCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/iu7opcarxheUpsilonDelibsMastersheet-InvitationalsEvals_Comments(1).csv`;
+	// let finalInvScore = `https://relay-file-upload.s3-us-east-2.amazonaws.com/feb4bfdw93vUpsilonDelibsMastersheet-FinalTotalAverages(invitationalsprepandpres)(2).csv`;
+	// let prepScoresCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/iu7opcarxheUpsilonDelibsMastersheet-InvitationalsEvals_Comments(1).csv`;
 
-	let prepBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/ffl7yoqfhtUpsilonDelibsMastersheet-Invitationalspreparationaverages(3).csv`;
-	let presentaionBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/u5qex8m8wz9UpsilonDelibsMastersheet-Presentationsaverages(1).csv`;
+	// let prepBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/ffl7yoqfhtUpsilonDelibsMastersheet-Invitationalspreparationaverages(3).csv`;
+	// let presentaionBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/u5qex8m8wz9UpsilonDelibsMastersheet-Presentationsaverages(1).csv`;
 
-	let interviewUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/x1496ks4vbmInterviewTemplate-Sheet1(3).csv`;
+	// let interviewUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/x1496ks4vbmInterviewTemplate-Sheet1(3).csv`;
 
 	let blacklist = ['', ' '];
 
