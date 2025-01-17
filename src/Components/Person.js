@@ -4,7 +4,7 @@ export default function Person({ data }) {
 	if (data === undefined) {
 		return <div>Loading...</div>;
 	}
-	let id = '1jbguGNGfT9VUgGHvjfSfgimh3iHuETqF';
+	let id = '1QMcsy4omOLETeujciCD3j7L9HFYNXANF';
 
 	let headshotUrl = data['photo'];
 	headshotUrl = headshotUrl.replace('https://drive.google.com/open?id=', '');
@@ -32,6 +32,7 @@ export default function Person({ data }) {
 			}}>
 			<img
 				src={`https://drive.google.com/thumbnail?id=${id}&sz=w1000`}
+				onClick={() => window.open(`https://drive.google.com/open?id=${id}`, '_blank')}
 				alt='Avatar'
 				style={{
 					width: 250,

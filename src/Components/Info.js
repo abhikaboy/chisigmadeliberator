@@ -70,15 +70,79 @@ export default function Info({ data, evalRaw, invScore, prepScores, interview, p
 	console.log(prepScores);
 	console.log(invScore);
 	return (
-		<div style={{ backgroundColor: '#fff', bottom: 0, marginBottom: '-5%', paddingBottom: '5%', marginTop: '-5%' }}>
+		<div
+			style={{
+				backgroundColor: '#fff',
+				bottom: 0,
+				marginBottom: '-5%',
+				paddingBottom: '5%',
+				marginTop: '-5%',
+				minHeight: '100vh',
+			}}>
 			<div style={{ marginLeft: '5%', marginTop: '5%', paddingTop: '5%', padding: '2%' }}>
 				<Tabs>
 					<TabList style={{ marginLeft: '-7%' }}>
+						<Tab>Rush</Tab>
 						<Tab>Invitational</Tab>
 						<Tab>Interview</Tab>
-						<Tab>Rush</Tab>
 					</TabList>
 					<TabPanel>
+						<div>
+							<h2>
+								Rush Comments{' '}
+								<div
+									style={{
+										fontSize: '1rem',
+										display: 'inline',
+										fontWeight: 'normal',
+									}}>{`(${evalRaw.length})`}</div>
+							</h2>
+							{evalRaw.map((evaluation, i) => {
+								return (
+									<div
+										style={{
+											// border: '1px solid black',
+											borderRadius: 10,
+											padding: '2%',
+											width: '90%',
+											marginTop: '2%',
+											boxShadow: '0px 2px 6px 0px rgba(0,0,0,0.2)',
+										}}>
+										<b>
+											{evaluation.brother} ({evaluation.event}):
+										</b>{' '}
+										{evaluation.notes}
+									</div>
+								);
+							})}
+						</div>
+						<h2>Application</h2>
+						<div style={{ marginTop: '2px', marginBottom: '2px' }}>
+							<QA
+								q='Please describe why you would like to become a brother of Alpha Kappa Psi (150 words or less).'
+								a={data.q1}
+							/>
+							<QA
+								q='What about Alpha Kappa Psi gets you excited and why? (150 words or less)'
+								a={data.q2}
+							/>
+							<QA
+								q='What do you think you can bring to our chapter? Why do you think you stand out from the other candidates? (150 words or less)'
+								a={data.q3}
+							/>
+							<QA
+								q='Share something you want us to know that would make you a stronger candidate and has yet to be
+fully represented through your resume or application. (150 words or less)'
+								a={data.q4}
+							/>
+						</div>
+						<h2>Resume</h2>
+						<div style={{ marginTop: '2px', marginBottom: '2px' }}>
+							<iframe src={data.resume} width='94%' height='200px'></iframe>
+						</div>
+					</TabPanel>
+
+					{/* <TabPanel>
 						<h2>Evaluation Scores</h2>
 						<table
 							style={{
@@ -206,62 +270,7 @@ export default function Info({ data, evalRaw, invScore, prepScores, interview, p
 								return <QA q={question} a={interview.responses[i]} />;
 							})}
 						</div>
-					</TabPanel>
-					<TabPanel>
-						<div>
-							<h2>
-								Rush Comments{' '}
-								<div
-									style={{
-										fontSize: '1rem',
-										display: 'inline',
-										fontWeight: 'normal',
-									}}>{`(${evalRaw.length})`}</div>
-							</h2>
-							{evalRaw.map((evaluation, i) => {
-								return (
-									<div
-										style={{
-											// border: '1px solid black',
-											borderRadius: 10,
-											padding: '2%',
-											width: '90%',
-											marginTop: '2%',
-											boxShadow: '0px 2px 6px 0px rgba(0,0,0,0.2)',
-										}}>
-										<b>
-											{evaluation.brother} ({evaluation.event}):
-										</b>{' '}
-										{evaluation.notes}
-									</div>
-								);
-							})}
-						</div>
-						<h2>Application</h2>
-						<div style={{ marginTop: '2px', marginBottom: '2px' }}>
-							<QA
-								q='Please describe why you would like to become a brother of Alpha Kappa Psi (150 words or less).'
-								a={data.q1}
-							/>
-							<QA
-								q='What about Alpha Kappa Psi gets you excited and why? (150 words or less)'
-								a={data.q2}
-							/>
-							<QA
-								q='What do you think you can bring to our chapter? Why do you think you stand out from the other candidates? (150 words or less)'
-								a={data.q3}
-							/>
-							<QA
-								q='Share something you want us to know that would make you a stronger candidate and has yet to be
-fully represented through your resume or application. (150 words or less)'
-								a={data.q4}
-							/>
-						</div>
-						<h2>Resume</h2>
-						<div style={{ marginTop: '2px', marginBottom: '2px' }}>
-							<iframe src={data.resume} width='94%' height='200px'></iframe>
-						</div>
-					</TabPanel>
+					</TabPanel> */}
 				</Tabs>
 
 				{/* <h2>Interview</h2>

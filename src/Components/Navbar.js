@@ -11,9 +11,10 @@ export default function Navbar() {
 				flexDirection: 'row',
 				display: 'flex',
 				verticalAlign: 'middle',
+				justifyContent: 'space-between',
 				height: '100',
 				boxShadow: '0px 5px 10px 0px rgba(0,0,0,0.75)',
-				zIndex: 100,
+				zIndex: 20,
 				position: 'fixed',
 			}}>
 			<div
@@ -35,12 +36,15 @@ export default function Navbar() {
 				style={{
 					color: 'white',
 					flex: 1,
-					flexDirection: 'row',
-					display: 'flex',
 					height: '100%',
 					// marginLeft: '30%',
+					alignSelf: 'flex-end',
+					verticalAlign: 'middle',
+					textAlign: 'right',
+					paddingRight: '1%',
+					margin: 'auto',
 				}}>
-				<p style={{ fontWeight: 300, paddingTop: 10 }}>Fall 2024 Invitationals</p>
+				<p style={{ fontWeight: 300, paddingTop: 10 }}>Spring 2025 Evaluation Round</p>
 			</div>
 		</div>
 	);
