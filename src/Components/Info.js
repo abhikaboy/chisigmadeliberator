@@ -54,13 +54,13 @@ export default function Info({ data, evalRaw, invScore, prepScores, interview, p
 		);
 	}
 	const computeStyle = (score) => {
-		if (score >= 4) {
+		if (score >= 3.8) {
 			return { backgroundColor: `#00ff0090` };
 		}
-		if (score >= 3.6) {
+		if (score >= 3.4) {
 			return { backgroundColor: `#b0ff0080` };
 		}
-		if (score >= 3) {
+		if (score >= 2.8) {
 			return { backgroundColor: `#60700040` };
 		} else {
 			return { backgroundColor: `#ff000090` };
@@ -88,6 +88,50 @@ export default function Info({ data, evalRaw, invScore, prepScores, interview, p
 					</TabList>
 					<TabPanel>
 						<div>
+							<h2>Evaluation Scores</h2>
+							<table
+								style={{
+									width: '95%',
+									boxShadow: '0px 2px 6px 0px rgba(0,0,0,0.2)',
+									borderRadius: 10,
+									color: 'white',
+									padding: 0,
+									spacing: 0,
+									gap: 0,
+								}}>
+								<thead
+									style={{
+										backgroundColor: '#001B2A',
+										padding: 0,
+										height: 50,
+										borderRadius: 10,
+										transform: 'translateX(7px)',
+									}}>
+									<th style={evalheading}>Professional</th>
+									<th style={evalheading}>Willingness</th>
+									<th style={evalheading}>Brotherhood</th>
+									<th style={evalheading}>Teamwork</th>
+									<th style={evalheading}>Rush Benefit</th>
+									<th style={evalheading}>AKPsi Benefit</th>
+									<th style={evalheading}>Overall</th>
+								</thead>
+
+								<tr
+									style={{
+										textAlign: 'center',
+										backgroundColor: '#fff',
+										color: '#001B2A',
+										height: 40,
+									}}>
+									<td style={computeStyle(averages[0])}>{averages[0]}</td>
+									<td style={computeStyle(averages[1])}>{averages[1]}</td>
+									<td style={computeStyle(averages[2])}>{averages[2]}</td>
+									<td style={computeStyle(averages[3])}>{averages[3]}</td>
+									<td style={computeStyle(averages[4])}>{averages[4]}</td>
+									<td style={computeStyle(averages[5])}>{averages[5]}</td>
+									<td style={computeStyle(averages[6])}>{averages[6]}</td>
+								</tr>
+							</table>
 							<h2>
 								Rush Comments{' '}
 								<div
