@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import QA from './QA';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { use } from 'react';
 
-export default function Info({ data, evalRaw, invScore, prepScores, interview, prepBreakdown, presBreakdown }) {
+export default function Info({ data, evalRaw, prepScores, interview, presBreakdown }) {
 	// professional	willingness	brotherhood	teamwork	rush_benefit	akpsi_benefit  overall
 	const [averages, setAverages] = useState([]);
+	const [prepBreakdown, setPrepBreakdown] = useState([]);
+
+	const [evalScoreFinal, setEvalScoreFinal] = useState(0);
+	const [prepScoreFinal, setPrepScoreFinal] = useState(0);
+
 	console.log(interview);
 	console.log(prepBreakdown);
 	useEffect(() => {
@@ -27,6 +33,46 @@ export default function Info({ data, evalRaw, invScore, prepScores, interview, p
 		totals[6] = (totals.reduce((a, b) => a + b, 0) / 6).toFixed(2); // bc we have 6 columns
 		setAverages(totals);
 	}, [evalRaw]);
+
+	useEffect(() => {
+		// loop through prepScores and find the averages
+		let totals = [0, 0, 0, 0];
+		prepScores.forEach((evaluation) => {
+			totals[1] += JSON.parse(evaluation.leadership);
+			totals[2] += JSON.parse(evaluation.environment);
+			totals[3] += JSON.parse(evaluation.team);
+		});
+		totals = totals.map((total) => JSON.parse((total /= prepScores.length).toFixed(2)));
+		totals[0] = totals[1] + totals[2] + totals[3]; // average
+		totals[0] /= 3; // average
+		totals[0] = totals[0].toFixed(2);
+		setPrepBreakdown([
+			{
+				average: totals[0],
+				leadership: totals[1],
+				environment: totals[2],
+				team: totals[3],
+			},
+		]);
+		setPrepScoreFinal(totals[0]);
+	}, [prepScores]);
+
+	useEffect(() => {
+		console.warn(presBreakdown);
+		console.log('PRES BREAKDOWN');
+		if (presBreakdown[0] === undefined) {
+			return;
+		}
+		presBreakdown[0].average =
+			parseInt(presBreakdown[0].skill) +
+			parseInt(presBreakdown[0].collab) +
+			parseInt(presBreakdown[0].organized) +
+			parseInt(presBreakdown[0].qna) +
+			parseInt(presBreakdown[0].overall);
+		presBreakdown[0].average = presBreakdown[0].average / 5;
+		presBreakdown[0].average = presBreakdown[0].average.toFixed(2);
+		setEvalScoreFinal(presBreakdown[0].average);
+	}, [presBreakdown]);
 
 	let evalheading = {
 		textAlign: 'center',
@@ -68,7 +114,11 @@ export default function Info({ data, evalRaw, invScore, prepScores, interview, p
 	};
 	console.log('Raw Prep');
 	console.log(prepScores);
-	console.log(invScore);
+
+	if (evalRaw == undefined) {
+		return <div>no data on this person their name is mispelled somwehwere crying emoji </div>;
+	}
+
 	return (
 		<div
 			style={{
@@ -186,7 +236,7 @@ fully represented through your resume or application. (150 words or less)'
 						</div>
 					</TabPanel>
 
-					{/* <TabPanel>
+					<TabPanel>
 						<h2>Evaluation Scores</h2>
 						<table
 							style={{
@@ -212,9 +262,11 @@ fully represented through your resume or application. (150 words or less)'
 							</thead>
 
 							<tr style={{ textAlign: 'center', backgroundColor: '#fff', color: '#001B2A', height: 40 }}>
-								<td style={computeStyle(invScore[0].final)}>{invScore[0].final}</td>
-								<td style={computeStyle(invScore[0].prep)}>{invScore[0].prep}</td>
-								<td style={computeStyle(invScore[0].eval)}>{invScore[0].eval}</td>
+								<td style={computeStyle((parseFloat(evalScoreFinal) + parseFloat(prepScoreFinal)) / 2)}>
+									{((parseFloat(evalScoreFinal) + parseFloat(prepScoreFinal)) / 2).toFixed(2)}
+								</td>
+								<td style={computeStyle(prepScoreFinal)}>{prepScoreFinal}</td>
+								<td style={computeStyle(evalScoreFinal)}>{evalScoreFinal}</td>
 							</tr>
 						</table>
 						<h2>Preparation Phase</h2>
@@ -307,14 +359,18 @@ fully represented through your resume or application. (150 words or less)'
 							);
 						})}
 					</TabPanel>
+
 					<TabPanel>
 						<div>
 							<h2>Interview</h2>
+							{/* <p> if u see this abhik was too eepy </p> */}
 							{interview.questions.map((question, i) => {
-								return <QA q={question} a={interview.responses[i]} />;
+								return question != 'Core Questions' ? (
+									<QA q={question} a={interview.responses[i]} />
+								) : null;
 							})}
 						</div>
-					</TabPanel> */}
+					</TabPanel>
 				</Tabs>
 
 				{/* <h2>Interview</h2>

@@ -6,8 +6,49 @@ import app from '../App/application.csv';
 import Modal from 'react-modal';
 
 export default function Body() {
+	let whitelist = [
+		'Connor Tukey',
+		'Tarun Singh',
+		'Drew Cesario',
+		'Shrey Abert',
+		'Arav Geria',
+		'Preston Chan',
+		'Brian Yin',
+		'Bhavi Doshi',
+		'Ally Mao',
+		'Nicolas (Nick) Somma Tang',
+		'Franklin Indra',
+		'Ryan Wang',
+		'Ria Singh',
+		'Kayla Woo',
+		'Kaavya Baliga',
+		'Brandon Jiang',
+		'Veer Patel',
+		'Krishi(Krish) Sahijwani',
+		'Luna Murray',
+		'Harini Mandalapu',
+		'Matthew Miller',
+		'Brennan So',
+		'Natalie Lin',
+		'Morgan Avit',
+		'Beatrice Bilezikian',
+		'Som Shrivastava',
+		'Alisha Srivastava',
+		'Joanna Li',
+		'Charles Kruger',
+		'Diana Heung',
+		'Javier Fernandez-Budiman',
+		'Jack McCarthy',
+		'Lucrezia Tranchina',
+		'Aashvi Govind',
+		'Allan Zhen',
+		'Savera Bhatia',
+		'Zi Situ',
+		'Briana Valdes',
+	];
+
 	const [password, setPassword] = useState('');
-	const [modal, setModal] = useState(true);
+	const [modal, setModal] = useState(false);
 
 	const [appData, setAppData] = useState([]);
 	const [headers, setHeaders] = useState([]);
@@ -50,7 +91,7 @@ export default function Body() {
 		let prepScoreList = prepScoreRaw.filter((evaluation) => evaluation.name.toLowerCase().trim() == name);
 		let prepBreakdownList = prepBreakdownRaw.filter((evaluation) => evaluation.name.toLowerCase().trim() == name);
 		let presBreakdownList = presentaionBreakdownRaw.filter(
-			(evaluation) => evaluation.name.toLowerCase().trim() == name.split(' ')[0],
+			(evaluation) => evaluation.name.toLowerCase().trim() == name,
 		);
 
 		setInterviewDataSelected(interviewData.filter((interview) => interview.name.toLowerCase().trim() == name)[0]);
@@ -74,18 +115,13 @@ export default function Body() {
 	// let finalInvScore = `https://relay-file-upload.s3-us-east-2.amazonaws.com/feb4bfdw93vUpsilonDelibsMastersheet-FinalTotalAverages(invitationalsprepandpres)(2).csv`;
 	// let prepScoresCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/iu7opcarxheUpsilonDelibsMastersheet-InvitationalsEvals_Comments(1).csv`;
 
-	// let prepBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/ffl7yoqfhtUpsilonDelibsMastersheet-Invitationalspreparationaverages(3).csv`;
-	// let presentaionBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/u5qex8m8wz9UpsilonDelibsMastersheet-Presentationsaverages(1).csv`;
-
-	// let interviewUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/x1496ks4vbmInterviewTemplate-Sheet1(3).csv`;
-
+	let prepScoresCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/8hywezuhgj6SP25Delibs2-MasterSpreadsheet-INVPrepTimeEvals(2).csv`;
+	let presentaionBreakdownCSV = `https://relay-file-upload.s3-us-east-2.amazonaws.com/wl4h7jje7lbSP25Delibs2-MasterSpreadsheet-INVGroupEvals(2).csv`;
+	let interviewUrl = `https://relay-file-upload.s3-us-east-2.amazonaws.com/ouzx01oo1qkSP25RUSHINTERVIEWMASTERSHEET-DELIBSHIT(2).csv`;
 	let blacklist = ['', ' '];
 
-	// let whitelist = [
-	// 	`Sean Davis`,
-	// ];
-
 	useEffect(() => {
+		// whitelist = whitelist.map((name) => name.toLowerCase().trim());
 		// Application
 		Papa.parse(url, {
 			download: true,
@@ -93,40 +129,31 @@ export default function Body() {
 			complete: function (results) {
 				console.log(results.data);
 				setHeaders(results.data[1]);
-				// setAppData(results.data.slice(2).filter((data) => whitelist.includes(data.name)));
-				setAppData(results.data.slice(1));
+				setAppData(results.data.slice(1).filter((data) => whitelist.includes(data.name)));
+				// setAppData(results.data.slice(1));
+			},
+		});
+		Papa.parse(prepScoresCSV, {
+			download: true,
+			header: true,
+			complete: function (results) {
+				setPrepScores(results.data.slice(1));
+				setPrepRaw(results.data.slice(1));
+				console.log('PREP BRABH');
+				console.log(prepScoreRaw);
 			},
 		});
 
-		// Papa.parse(finalInvScore, {
-		// 	download: true,
-		// 	header: true,
-		// 	complete: function (results) {
-		// 		setInvScore(results.data.slice(1).slice(0, 22));
-		// 		setInvRaw(results.data.slice(1).slice(0, 22));
-		// 	},
-		// });
-
-		// Papa.parse(prepScoresCSV, {
-		// 	download: true,
-		// 	header: true,
-		// 	complete: function (results) {
-		// 		setPrepScores(results.data.slice(1));
-		// 		setPrepRaw(results.data.slice(1));
-		// 		console.log('PREP BRABH');
-		// 		console.log(prepScoreRaw);
-		// 	},
-		// });
-		// Papa.parse(presentaionBreakdownCSV, {
-		// 	download: true,
-		// 	header: true,
-		// 	complete: function (results) {
-		// 		setPresentaionBreakdownRaw(results.data.slice(1));
-		// 		setPresentaionBreakdown(results.data.slice(1)[0]);
-		// 		console.log('PREP BRABH');
-		// 		console.log(prepScoreRaw);
-		// 	},
-		// });
+		Papa.parse(presentaionBreakdownCSV, {
+			download: true,
+			header: true,
+			complete: function (results) {
+				setPresentaionBreakdownRaw(results.data.slice(1));
+				setPresentaionBreakdown(results.data.slice(1)[0]);
+				console.log('PREP BRABH');
+				console.log(prepScoreRaw);
+			},
+		});
 
 		// Evals
 		Papa.parse(evalUrl, {
@@ -147,40 +174,44 @@ export default function Body() {
 		// 	},
 		// });
 
-		// Papa.parse(interviewUrl, {
-		// 	download: true,
-		// 	header: true,
-		// 	complete: function (results) {
-		// 		let interviewDataLocal = [];
-		// 		for (let [i, value] of results.data.entries()) {
-		// 			if (value.Person == '*') {
-		// 				// Found a marker
-		// 				const q = Object.values(results.data[i]); // questions
-		// 				const res = Object.values(results.data[i + 1]); // answers
-		// 				console.log(results.data[i + 1]); // answers
-		// 				let interviewObject = {
-		// 					name: '',
-		// 					questions: [],
-		// 					responses: [],
-		// 				};
-		// 				interviewObject.name = res[0];
-		// 				let questions = q.splice(2);
-		// 				let responses = res.splice(2);
+		Papa.parse(interviewUrl, {
+			download: true,
+			header: true,
+			complete: function (results) {
+				let interviewDataLocal = [];
+				for (let [i, value] of results.data.entries()) {
+					if (value.Person == '*') {
+						// Found a marker
+						const q = Object.values(results.data[i]); // questions
+						const res = Object.values(results.data[i + 1]); // answers
+						console.log(results.data[i + 1]); // answers
+						let interviewObject = {
+							name: '',
+							questions: [],
+							responses: [],
+						};
+						interviewObject.name = res[0];
+						let questions = q.splice(2);
+						let responses = res.splice(2);
 
-		// 				for (let i = 0; i < responses.length; i++) {
-		// 					if (responses[i].length > 10) {
-		// 						interviewObject.questions.push(questions[i]);
-		// 						interviewObject.responses.push(responses[i]);
-		// 					}
-		// 				}
-		// 				console.log(interviewObject);
-		// 				interviewDataLocal.push(interviewObject);
-		// 				setInterviewDataSelected(interviewObject);
-		// 			}
-		// 		}
-		// 		setInterviewData(interviewDataLocal);
-		// 	},
-		// });
+						for (let i = 0; i < responses.length; i++) {
+							if (responses[i].length > 10) {
+								interviewObject.questions.push(questions[i]);
+								interviewObject.responses.push(responses[i]);
+							}
+						}
+
+						interviewObject.questions.splice(0, 1);
+						interviewObject.responses.splice(0, 1);
+
+						console.log(interviewObject);
+						interviewDataLocal.push(interviewObject);
+						setInterviewDataSelected(interviewObject);
+					}
+				}
+				setInterviewData(interviewDataLocal);
+			},
+		});
 	}, []);
 
 	useEffect(() => {
